@@ -309,5 +309,53 @@ You’ve successfully:
 Your website is now live at:
 **👉 [www.yourdomain.com](https://www.yourdomain.com)**
 
+---
+
+## 🔄 Setting up GitOps with ArgoCD
+
+### Prerequisites
+- Kubernetes cluster with kubectl access
+- Admin access to the cluster
+
+### ArgoCD Installation and Setup
+
+1. **Create ArgoCD Namespace**
+```bash
+kubectl create namespace argocd
+```
+
+2. **Install ArgoCD**
+```bash
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+3. **Access ArgoCD UI**
+```bash
+# Get ArgoCD Services
+kubectl get svc -n argocd
+
+# Edit the argocd-server service to expose it
+kubectl edit svc argocd-server -n argocd
+# Change type: ClusterIP to type: LoadBalancer
+
+# Verify the change
+kubectl get svc -n argocd
+```
+
+4. **Get Admin Credentials**
+```bash
+# View the admin password secret
+kubectl get secret -n argocd
+
+# Access the initial admin password
+kubectl edit secret argocd-initial-admin-secret -n argocd
+# The password is base64 encoded in the 'password' field
+```
+
+### Next Steps
+- Use the LoadBalancer IP/URL to access ArgoCD UI
+- Login with username: admin and the decoded password
+- Configure your Git repositories
+- Set up your applications for GitOps deployment
 
 

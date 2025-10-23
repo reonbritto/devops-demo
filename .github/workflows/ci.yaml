@@ -81,13 +81,12 @@ jobs:
             tags: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}
 
         - name: trivy scan
-          uses: aquasecurity/trivy-action@0.32.0
+          uses: aquasecurity/trivy-action@0.33.0
           with:
             image-ref: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}
             format: sarif
             output: trivy-report.sarif
             exit-code: '0'
-            severity: 'CRITICAL,HIGH'
             ignore-unfixed: true
 
         - name: Upload Trivy SARIF report
