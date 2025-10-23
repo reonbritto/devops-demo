@@ -76,7 +76,7 @@ jobs:
             file: src/product-catalog/Dockerfile
             push: true
             tags: ${{ secrets.DOCKER_USERNAME }}/product-catalog:${{github.run_id}}
-            
+
         - name: trivy scan
           uses: aquasecurity/trivy-action@0.32.0
           with:
@@ -110,8 +110,8 @@ jobs:
         
         - name: Commit and push changes
           run: |
-            git config --global user.email "abhishek@gmail.com"
-            git config --global user.name "Abhishek Veeramalla"
+            git config --global user.email "reonbritto@gmail.com"
+            git config --global user.name "reonbritto"
             git add kubernetes/productcatalog/deploy.yaml
             git commit -m "[CI]: Update product catalog image tag"
             git push origin HEAD:main -f
